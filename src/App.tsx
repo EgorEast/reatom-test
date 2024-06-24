@@ -12,13 +12,15 @@ function App() {
   const submit = useAction(onSubmit)
 
   useEffect(() => {
-    ctx.subscribe(greetingAtom, greeting => {
+    const unsubscribe = ctx.subscribe(greetingAtom, greeting => {
       const greetingEl = document.getElementById('greeting')
 
       if (!greetingEl) return
 
       greetingEl.innerText = greeting
     })
+
+    return () => unsubscribe()
   }, [])
 
   return (
