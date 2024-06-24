@@ -9,7 +9,9 @@ export const greetingAtom = atom(ctx => {
   return input ? `Hello, ${input}!` : ''
 })
 
-export const onSubmit = action(ctx => {
+export const onSubmit = action<[{ name: string }]>((ctx, { name }) => {
+  console.log('name: ', name)
+
   const input = ctx.get(inputAtom)
   ctx.schedule(() => {
     localStorage.setItem('name', input)

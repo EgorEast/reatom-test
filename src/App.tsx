@@ -29,7 +29,7 @@ function App() {
       <input id='name' onInput={e => setInput(e.currentTarget.value)} />
       <div id='greeting'></div>
       <div style={{ color: 'red' }}>{greeting}</div>
-      <button onClick={submit}>save</button>
+      <button onClick={() => submit({ name: 'test' })}>save</button>
       <Search />
     </>
   )
