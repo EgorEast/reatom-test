@@ -21,7 +21,6 @@ const api = async (query: string, controller: AbortController) => {
 const fetchIssues = reatomAsync(async (ctx, query: string) => {
   await sleep(350) // debounce
   const { items } = await api(query, ctx.controller)
-  console.log('items: ', items)
   return items
 }, 'fetchIssues').pipe(
   withAbort({ strategy: 'last-in-win' }),
@@ -42,7 +41,6 @@ onUpdate(searchAtom, fetchIssues)
 
 export const Search = () => {
   const [input] = useAtom(inputAtom)
-  console.log('input: ', input)
 
   const [search, setSearch] = useAtom(searchAtom)
   const [issues] = useAtom(fetchIssues.dataAtom)
@@ -56,6 +54,7 @@ export const Search = () => {
 
   return (
     <main>
+      <b>{input}</b>
       <input value={search} onChange={e => setSearch(e.currentTarget.value)} placeholder='Search' />
       {isLoading && 'Loading...'}
       <ul>

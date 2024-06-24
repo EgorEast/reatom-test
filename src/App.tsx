@@ -12,22 +12,17 @@ reatomCtx.subscribe(greetingAtom, greeting => {
   greetingEl.innerText = greeting
 })
 
-document.getElementById('name')?.addEventListener('input', event => {
-  inputAtom(reatomCtx, (event.currentTarget as HTMLInputElement)?.value)
-})
-document.getElementById('save')?.addEventListener('click', () => {
-  onSubmit(reatomCtx)
-})
-
 function App() {
   const [input, setInput] = useAtom(inputAtom)
+  const [greeting] = useAtom(ctx => `common:GREETING ${ctx.spy(inputAtom)}!`)
 
   return (
     <>
       <b>{input}</b>
       <input id='name' onInput={e => setInput(e.currentTarget.value)} />
       <div id='greeting'></div>
-      <button id='save'>sdc</button>
+      <div style={{ color: 'red' }}>{greeting}</div>
+      <button onClick={() => onSubmit(reatomCtx)}>save</button>
       <Search />
     </>
   )
